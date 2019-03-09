@@ -1,0 +1,43 @@
+cd F:\Praneel\Dev\tools\kafka_2.12-2.1.1
+
+Zookeper:
+.\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
+
+Kafka:
+.\bin\windows\kafka-server-start.bat .\config\server.properties
+
+Create Topics:
+1. Input
+.\bin\windows\kafka-topics.bat  --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test-mysql-jdbc-accounts-sink
+
+2. Output
+.\bin\windows\kafka-topics.bat  --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic word-count-output
+
+Topics List:
+.\bin\windows\kafka-topics.bat --zookeeper localhost:2181 --list
+
+Kafka producer:
+.\bin\windows\kafka-console-producer.bat  --broker-list  PLAINTEXT://192.168.29.74:9092 --topic word-count-input
+
+Kafka Consumer:
+.\bin\windows\kafka-console-consumer.bat --bootstrap-server  PLAINTEXT://192.168.29.74:9092 --topic streams-plaintext-input --from-beginning 
+
+WordCount:
+.\bin\windows\kafka-console-consumer.bat --bootstrap-server PLAINTEXT://192.168.29.74:9092 --topic word-count-output --from-beginning --formatter kafka.tools.DefaultMessageFormatter --property print.key=true --property print.value=true --property key.deserializer=org.apache.kafka.common.serialization.StringDeserializer --property value.deserializer=org.apache.kafka.common.serialization.LongDeserializer
+	
+Stream Application:
+.\bin\windows\kafka-run-class.bat org.apache.kafka.streams.examples.wordcount.WordCountDemo
+
+JDBC:
+.\bin\windows\connect-standalone.bat config\connect-standalone.properties config\source-quickstart-sqlite.properties config\sink-quickstart-sqlite.properties
+
+Download JDBC source connector
+
+SQLlite
+F:\Praneel\Dev\tools\sqlite
+
+3306
+.\bin\windows\kafka-console-consumer.bat --bootstrap-server  PLAINTEXT://192.168.29.74:9092 --topic streams-plaintext-input --from-beginning 
+
+mysql -u root -p
+MySQL80
