@@ -41,3 +41,7 @@ F:\Praneel\Dev\tools\sqlite
 
 mysql -u root -p
 MySQL80
+
+Twitter
+.\bin\windows\kafka-topics.bat  --create --zookeeper localhost:2181 --replication-factor 1 --partitions 3 --topic twitter_status_connect
+.\bin\windows\kafka-topics.bat  --create --zookeeper localhost:2181 --replication-factor 1 --partitions 3 --topic twitter_deletes_connect
